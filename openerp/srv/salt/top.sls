@@ -1,0 +1,7 @@
+base:
+    '*':
+#        - workaround
+        - postgresql
+        - openerp
+
+

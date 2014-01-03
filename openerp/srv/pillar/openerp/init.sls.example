@@ -1,0 +1,18 @@
+openerp_dbport: 5432
+openerp_dbpassword: aPassword
+openerp_dbuser: openerp
+
+openerp_user: openerp
+openerp_group: openerp
+
+openerp_server_pwd: aPassword
+openerp_archive_version: 20131222-002532
+openerp_installation_path: /opt
+openerp_configuration_path: /etc/openerp
+openerp_logging_path: /var/log/openerp
+
+openerp_service_name: oerp_srvr
+
+
+
+

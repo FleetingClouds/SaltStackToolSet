@@ -1,0 +1,10 @@
+/var/log/openerp/*.log {
+       weekly
+       rotate 10
+       copytruncate
+       delaycompress
+       compress
+       notifempty
+       missingok
+       su root root
+}
