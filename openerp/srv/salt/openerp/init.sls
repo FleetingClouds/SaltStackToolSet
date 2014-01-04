@@ -15,9 +15,13 @@ apt_prereqs:
             - gcc
             - ghostscript
             - graphviz
+            - libfreetype6-dev
             - libldap2-dev
             - libsasl2-dev
-            - libfreetype6-dev
+            - libsasl2-dev
+            - libpq-dev
+            - libxml2
+            - libxslt
             - lptools
             - make
             - mc
@@ -27,8 +31,9 @@ apt_prereqs:
             - python-dev
             - python-libxslt1
             - python-matplotlib
-            - python-pychart
+            - python-pip
             - python-pdftools
+            - python-pychart
             - python-reportlab-accel
             - python-zsi
 
@@ -70,6 +75,9 @@ python_prereqs:
             - pkg: python-pip
             - pkg: libpq-dev
             - pkg: python-dev
+            - pkg: libxml2
+            - pkg: libxslt
+
 
 # ####
 #   Ensure openerp data base is accessible over the net
