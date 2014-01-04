@@ -21,7 +21,7 @@ apt_prereqs:
             - libsasl2-dev
             - libpq-dev
             - libxml2
-            - libxslt
+            - libxslt1-dev
             - lptools
             - make
             - mc
@@ -76,7 +76,7 @@ python_prereqs:
             - pkg: libpq-dev
             - pkg: python-dev
             - pkg: libxml2
-            - pkg: libxslt
+            - pkg: libxslt1-dev
 
 
 # ####
