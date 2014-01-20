@@ -1,0 +1,12 @@
+openerp_dbport: 5432
+openerp_dbname: openerpdb
+openerp_dbuser: openerp
+openerp_dbpassword: kmuhtf3w
+
+openerp_server_pwd: kmuhtf3w
+
+openerp_archive_version: 20131222-002532
+openerp_installation_path: /opt
+openerp_configuration_path: /etc/openerp
+
+
