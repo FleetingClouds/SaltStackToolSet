@@ -17,6 +17,7 @@ apt_prereqs:
 python_prereqs:
     pip.installed:
         - names:
+            - html5lib
             - pyopenssl
             - tornado
             - kerberos
