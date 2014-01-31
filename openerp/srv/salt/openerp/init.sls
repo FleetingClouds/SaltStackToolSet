@@ -17,7 +17,7 @@ apt_prereqs:
             - graphviz
             - libfreetype6-dev
             - libldap2-dev
-            - libsasl2-dev
+            - libjpeg-dev
             - libsasl2-dev
             - libpq-dev
             - libxml2
@@ -29,6 +29,7 @@ apt_prereqs:
             - postgresql-client
             - python-dateutil
             - python-dev
+            - python-imaging
             - python-libxslt1
             - python-matplotlib
             - python-pip
@@ -36,6 +37,8 @@ apt_prereqs:
             - python-pychart
             - python-reportlab-accel
             - python-zsi
+            - zlib1g-dev
+            - zip
 
             
 python_prereqs:
@@ -52,7 +55,7 @@ python_prereqs:
             - mako
             - paramiko
             - pdftools
-            - PIL
+            - pillow
             - psutil
             - psycopg2
             - pydot
