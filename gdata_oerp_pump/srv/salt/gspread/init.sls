@@ -46,17 +46,11 @@ install-gspread:
             - extract-gspread
             - python_prereqs
 
-/tmp/gspread-master/tests/tests.config:
+/tmp/gspread-master/tests/client-secret.json:
     file.managed:
-        - source: salt://gspread/tests.config
+        - source: salt://gspread/client-secret.json
         - makedirs: True
         - template: jinja
         - depends:
             - install-gspread
 
-test-gspread:
-    cmd.run:
-        - name: nosetests -q
-        - cwd: /tmp/gspread-master
-        - depends:
-            - /tmp/gspread-master/tests/tests.config:

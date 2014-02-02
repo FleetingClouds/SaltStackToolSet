@@ -35,4 +35,17 @@ extract-gdata_oerp_pump:
             - extract-gdata_oerp_pump
             - /opt/GData_OpenERP_Data_Pump
 
+/tmp/gspread-master/tests/tests.config:
+    file.managed:
+        - source: salt://gspread/tests.config
+        - makedirs: True
+        - template: jinja
+        - depends:
+            - install-gspread
+ test-gspread:
+    cmd.run:
+        - name: nosetests -q
+        - cwd: /tmp/gspread-master
+        - depends:
+            - /tmp/gspread-master/tests/tests.config:
 
