@@ -42,7 +42,8 @@ extract-gdata_oerp_pump:
         - template: jinja
         - depends:
             - install-gspread
- test-gspread:
+
+test-gspread:
     cmd.run:
         - name: nosetests -q
         - cwd: /tmp/gspread-master
