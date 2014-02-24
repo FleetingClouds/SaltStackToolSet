@@ -13,7 +13,7 @@
 ### END INIT INFO
 
 PATH=/bin:/sbin:/usr/bin
-DAEMON={{ pillar['openerp_installation_path'] }}/openerp-7/server/openerp-server
+DAEMON={{ pillar['openerp_installation_path'] }}/openerp-{{ pillar['openerp_major_revision'] }}/server/openerp-server
 NAME={{ pillar['openerp_service_name'] }}
 DESC=openerp-server
 
