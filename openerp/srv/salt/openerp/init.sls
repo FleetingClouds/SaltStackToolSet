@@ -88,7 +88,7 @@ python_prereqs:
 #
 pg_hba.conf:
     file.blockreplace:
-        - name: /etc/postgresql/9.1/main/pg_hba.conf
+        - name: /etc/postgresql/{{ pillar['postgres_version'] }}/main/pg_hba.conf
         - marker_start: "# START SaltStack managed zone -DO-NOT-EDIT-"
         - marker_end: "# END SaltStack managed zone --"
         - prepend_if_not_found: True
@@ -97,11 +97,12 @@ pg_hba.conf:
 
 pg_hba.conf-accumulated1:
     file.accumulated:
-        - filename: /etc/postgresql/9.1/main/pg_hba.conf
+        - filename: /etc/postgresql/{{ pillar['postgres_version'] }}/main/pg_hba.conf
         - name: pg_hba-accum
         - text: "host    all             {{ pillar['openerp_dbuser'] }}         {{ grains['ip_interfaces']['eth0'][0] }}/24\tmd5"
         - require_in:
             - file: pg_hba.conf
+
 
 # ####
 #   Add an OpenERP group to the machine
@@ -111,6 +112,7 @@ openerp_group:
     group.present:
         - name: openerp
 
+
 # ####
 #   Add an OpenERP user to the machine
 # ##
@@ -119,30 +121,47 @@ openerp_user_account:
     user.present:
         - name: openerp
         - fullname: OpenERP
-        - home: {{ pillar['openerp_installation_path'] }}/openerp-7
+        - home: /home/openerp
         - groups:
             - openerp
-        
+
+
 # ####
 #   Place OpenERP runtime where it belongs
 # ##
 #
-{{ pillar['openerp_installation_path'] }}/openerp-7.0-{{ pillar['openerp_archive_version'] }}:
+{{ pillar['openerp_installation_path'] }}/openerp-{{ pillar['openerp_major_revision'] }}.{{ pillar['openerp_minor_revision'] }}-{{ pillar['openerp_archive_version'] }}:
     archive.extracted:
         - name: {{ pillar['openerp_installation_path'] }}
-        - source: http://nightly.openerp.com/7.0/nightly/deb/openerp_7.0-{{ pillar['openerp_archive_version'] }}-1.tar.gz
-        - source_hash: http://nightly.openerp.com/7.0/nightly/deb/openerp_7.0-{{ pillar['openerp_archive_version'] }}-1.dsc
+        - source: http://nightly.openerp.com/{{ pillar['openerp_archive_path'] }}/nightly/deb/openerp_{{ pillar['openerp_major_revision'] }}.{{ pillar['openerp_minor_revision'] }}-{{ pillar['openerp_archive_version'] }}-{{ pillar['openerp_archive_build'] }}.tar.gz
+        - source_hash: http://nightly.openerp.com/{{ pillar['openerp_archive_path'] }}/nightly/deb/openerp_{{ pillar['openerp_major_revision'] }}.{{ pillar['openerp_minor_revision'] }}-{{ pillar['openerp_archive_version'] }}-{{pillar['openerp_archive_build' ] }}.dsc
         - archive_format: tar
         - tar_options: z
-        - if_missing: {{ pillar['openerp_installation_path'] }}/openerp-7.0-{{ pillar['openerp_archive_version'] }}
+        - if_missing: {{ pillar['openerp_installation_path'] }}/openerp-{{ pillar['openerp_major_revision'] }}.{{ pillar['openerp_minor_revision'] }}-{{ pillar['openerp_archive_version'] }}
 
 # ####
-#   Set OpenERP home directory ownership and permissions
+#   Set OpenERP base directory ownership and permissions
 # ##
 #
 openerp_directory_ownership:
     file.directory:
-        - name: {{ pillar['openerp_installation_path'] }}/openerp-7.0-{{ pillar['openerp_archive_version'] }}
+        - name: {{ pillar['openerp_installation_path'] }}/openerp-{{ pillar['openerp_major_revision'] }}.{{ pillar['openerp_minor_revision'] }}-{{ pillar['openerp_archive_version'] }}
+        - user: openerp
+        - group: openerp
+        - dir_mode: 755
+        - file_mode: 644
+        - recurse:
+            - user
+            - group
+            - mode
+
+# ####
+#   Set OpenERP short path directory ownership and permissions
+# ##
+#
+openerp_shortpath_ownership:
+    file.directory:
+        - name: {{ pillar['openerp_installation_path'] }}/openerp-{{ pillar['openerp_major_revision'] }}
         - user: openerp
         - group: openerp
         - dir_mode: 755
@@ -158,7 +177,7 @@ openerp_directory_ownership:
 #
 openerp-server_privileges:
     file.managed:
-        - name: {{ pillar['openerp_installation_path'] }}/openerp-7.0-{{ pillar['openerp_archive_version'] }}/openerp-server
+        - name: {{ pillar['openerp_installation_path'] }}/openerp-{{ pillar['openerp_major_revision'] }}.{{ pillar['openerp_minor_revision'] }}-{{ pillar['openerp_archive_version'] }}/openerp-server
         - user: openerp
         - group: openerp
         - mode: 550
@@ -169,9 +188,13 @@ openerp-server_privileges:
 #
 openerp_symlink:
     file.symlink:
-        - name: {{ pillar['openerp_installation_path'] }}/openerp-7/server
-        - target: {{ pillar['openerp_installation_path'] }}/openerp-7.0-{{ pillar['openerp_archive_version'] }}
+        - name: {{ pillar['openerp_installation_path'] }}/openerp-{{ pillar['openerp_major_revision'] }}/server
+        - target: {{ pillar['openerp_installation_path'] }}/openerp-{{ pillar['openerp_major_revision'] }}.{{ pillar['openerp_minor_revision'] }}-{{ pillar['openerp_archive_version'] }}
         - makedirs: True
+        - user: openerp
+        - group: openerp
+        - mode: 640
+        - dir_mode: 750
 
 # ####
 #   Configure OpenERP from pillar data
@@ -188,7 +211,7 @@ openerp_symlink:
         - dir_mode: 750
 
 # ####
-#   Prepare OpenERP logging 
+#   Prepare OpenERP logging
 # ##
 #
 {{ pillar['openerp_logging_path'] }}:
@@ -208,7 +231,6 @@ openerp_symlink:
         - user: root
         - group: root
         - mode: 644
-
 #
 openerp:
     postgres_user:
@@ -224,16 +246,17 @@ openerp:
 #   Configure OpenERP init.d service
 # ##
 #
-/etc/init.d/oerp-srvr:
+/etc/init.d/{{ pillar['openerp_service_name'] }}:
     file.managed:
-        - source: salt://openerp/oerp-srvr
+        - source: salt://openerp/server-upstart.sh
         - makedirs: True
         - template: jinja
         - user: root
         - group: root
         - mode: 750
 
-oerp-srvr:
+#
+{{ pillar['openerp_service_name'] }}:
     service:
         - running
         - enable: true

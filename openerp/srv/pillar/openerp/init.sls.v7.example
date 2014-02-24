@@ -1,0 +1,22 @@
+openerp_dbport: 5432
+
+openerp_dbuser: OpenERPz_Postgres_User_Name
+openerp_dbpassword: OpenERPz_Postgres_Password
+
+openerp_user: OpenERPz_Linux_User_Name
+openerp_group: OpenERPz_Linux_Group_Name
+
+openerp_server_pwd: OpenERP_SuperUser_Password
+
+openerp_major_revision: 7
+openerp_minor_revision: 0
+openerp_archive_version: 20140223-002825
+openerp_archive_build: 1
+openerp_archive_path: 7.0
+
+openerp_installation_path: /opt
+openerp_configuration_path: /etc/openerp
+openerp_logging_path: /var/log/openerp
+
+openerp_service_name: oerp-srvr
+
