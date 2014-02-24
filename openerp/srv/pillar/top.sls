@@ -1,4 +1,5 @@
 base:
     '*':
+        - postgresql
         - openerp
 
