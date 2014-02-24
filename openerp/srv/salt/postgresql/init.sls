@@ -13,7 +13,7 @@ postgresql-contrib:
 postgresql.conf:
     file:
         - blockreplace
-        - name: /etc/postgresql/9.1/main/postgresql.conf
+        - name: /etc/postgresql/{{ pillar['postgres_version'] }}/main/postgresql.conf
         - marker_start: "# START SaltStack managed zone -DO-NOT-EDIT- -------------------------------"
         - marker_end: "# END SaltStack managed zone -----------------------------------------------"
         - prepend_if_not_found: True
@@ -22,15 +22,15 @@ postgresql.conf:
 
 postgresql.conf-accumulated1:
     file.accumulated:
-        - filename: /etc/postgresql/9.1/main/postgresql.conf
+        - filename: /etc/postgresql/{{ pillar['postgres_version'] }}/main/postgresql.conf
         - name: postgresql-accum
         - text: "listen_addresses='{{ grains['ip_interfaces']['eth0'][0]}}'"
         - require_in:
             - file: postgresql.conf
 
-postgresql-9.1-dbg:
+postgresql-{{ pillar['postgres_version'] }}-dbg:
     pkg:
-        - name: postgresql-9.1-dbg
+        - name: postgresql-{{ pillar['postgres_version'] }}-dbg
         - installed
         - require:
             - service: postgresql
