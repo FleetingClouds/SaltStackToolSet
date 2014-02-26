@@ -136,7 +136,6 @@ openerp_user_account:
         - source: http://nightly.openerp.com/{{ pillar['openerp_archive_path'] }}/nightly/deb/openerp_{{ pillar['openerp_major_revision'] }}.{{ pillar['openerp_minor_revision'] }}-{{ pillar['openerp_archive_version'] }}-{{ pillar['openerp_archive_build'] }}.tar.gz
         - source_hash: http://nightly.openerp.com/{{ pillar['openerp_archive_path'] }}/nightly/deb/openerp_{{ pillar['openerp_major_revision'] }}.{{ pillar['openerp_minor_revision'] }}-{{ pillar['openerp_archive_version'] }}-{{pillar['openerp_archive_build' ] }}.dsc
         - archive_format: tar
-        - tar_options: z
         - if_missing: {{ pillar['openerp_installation_path'] }}/openerp-{{ pillar['openerp_major_revision'] }}.{{ pillar['openerp_minor_revision'] }}-{{ pillar['openerp_archive_version'] }}
 
 # ####
