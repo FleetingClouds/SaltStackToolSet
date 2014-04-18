@@ -7,11 +7,12 @@ openerp_group: OpenERPz_Linux_Group_Name
 
 openerp_server_pwd: OpenERP_SuperUser_Password
 
-openerp_major_revision: 8
-openerp_minor_revision: 0dev
-openerp_archive_version: 20140223-000101
-openerp_archive_build: 1
-openerp_archive_path: trunk
+# http://nightly.openerp.com/trunk/nightly/deb/openerp_8.0dev-20140416-230101-1.tar.gz
+openerp_archive_path: trunk #--+                       |   |         |        |
+openerp_major_revision: 8 #----------------------------+   |         |        |
+openerp_minor_revision: 0dev #-----------------------------+         |        |
+openerp_archive_version: 20140223-000101 #---------------------------+        |
+openerp_archive_build: 1 # ---------------------------------------------------+
 
 
 openerp_installation_path: /opt
