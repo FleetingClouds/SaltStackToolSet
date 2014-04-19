@@ -24,7 +24,7 @@ postgresql.conf-accumulated1:
     file.accumulated:
         - filename: /etc/postgresql/{{ pillar['postgres_version'] }}/main/postgresql.conf
         - name: postgresql-accum
-        - text: "listen_addresses='{{ grains['ip_interfaces']['eth0'][0]}}'"
+        - text: "listen_addresses='127.0.0.1,{{ grains['ip_interfaces']['eth0'][0]}}'"
         - require_in:
             - file: postgresql.conf
 
