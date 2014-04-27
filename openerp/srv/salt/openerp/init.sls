@@ -22,6 +22,7 @@ apt_prereqs:
             - libpq-dev
             - libxml2
             - libxslt1-dev
+            - libxml2-dev
             - lptools
             - make
             - mc
@@ -49,7 +50,7 @@ python_prereqs:
             - egenix-mx-base
             - feedparser
             - jinja2
-            - lxml
+#            - lxml  # this seems problematic. using apt on libxml2-dev and libxslt1-dev instead above
             - matplotlib
             - mock
             - mako
