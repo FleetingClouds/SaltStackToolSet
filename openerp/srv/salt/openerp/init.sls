@@ -238,7 +238,8 @@ openerp:
         - name: {{ pillar['openerp_dbuser'] }}
         - password: {{ pillar['openerp_dbpassword'] }}
         - createdb: True
-#        - user: postgres
+        - db_user: {{ pillar['postgres_dbuser'] }}
+        - db_password: {{ pillar['postgres_dbpassword'] }}
         - require:
             - service: postgresql
 
