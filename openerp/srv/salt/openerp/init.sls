@@ -47,10 +47,8 @@ python_prereqs:
         - names:
             - Babel
             - docutils
-            - egenix-mx-base
             - feedparser
             - jinja2
-            - lxml  # this seems problematic. using apt on libxml2-dev and libxslt1-dev instead above
             - matplotlib
             - mock
             - mako
@@ -80,7 +78,19 @@ python_prereqs:
             - pkg: libpq-dev
             - pkg: python-dev
             - pkg: libxml2
+            - pkg: libxml2-dev
             - pkg: libxslt1-dev
+#     - egenix-mx-base
+
+
+lxml_prereqs:
+    pip.installed:
+        - names:
+            - lxml  # this still seems problematic.
+        - requires:
+            - python_prereqs
+
+
 
 
 # ####
