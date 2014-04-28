@@ -50,7 +50,7 @@ python_prereqs:
             - egenix-mx-base
             - feedparser
             - jinja2
-#            - lxml  # this seems problematic. using apt on libxml2-dev and libxslt1-dev instead above
+            - lxml  # this seems problematic. using apt on libxml2-dev and libxslt1-dev instead above
             - matplotlib
             - mock
             - mako
